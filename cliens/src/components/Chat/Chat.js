@@ -7,6 +7,7 @@ import video from "../../assets/background2.mp4"
 import InfoBar from "../InfoBar/InfoBar";
 import Messages from "../Messages/Messages";
 import InputBox from "../InputBox/InputBox"
+import UsersContainer from "../UsersContainer/UserContainers";
 
 let socket;
 
@@ -67,6 +68,7 @@ const Chat = ({location}) => {
                         <Messages messages={messages} name={name}/>
                         <InputBox message={message} setMessage={setMessage} sendMessage={sendMessage}/>
                     </div>
+                    <UsersContainer users={users}/>
                 </div>
                 < script src="https://code.jquery.com/jquery-3.4.1.js"/>
                 <script src="../../jquery.vide.js"/>
