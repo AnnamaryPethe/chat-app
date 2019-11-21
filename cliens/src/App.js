@@ -8,7 +8,6 @@ const App = () => (
         <Route path={'/'} exact component={Dashboard}/>
         <Route path={'/chat'}  component={Chat}/>
     </Router>
-
 );
 
 
