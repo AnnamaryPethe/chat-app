@@ -27,11 +27,11 @@ io.on('connection', (socket) => {
         callback();
     });
 
-    socket.on('rooms', (rooms, callback) => {
+    socket.on('rooms', rooms => {
         const roomArray = getAllRooms(rooms);
         console.log(roomArray);
 
-        callback();
+        socket.emit('roomArray',  Array.from(roomArray));
     });
 
     socket.on('sendMessage', (message, callback) => {

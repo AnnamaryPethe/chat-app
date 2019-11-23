@@ -1,11 +1,26 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {Link} from 'react-router-dom';
 import "./Dashboard.css"
 import video from '../../assets/background.mp4'
+import io from 'socket.io-client';
+import Rooms from "../Rooms/Rooms";
+
+let socket;
 
 const Dashboard = () => {
     const [name, setName] = useState(" ");
     const [room, setRoom] = useState(" ");
+    const [rooms, setRooms] = useState([]);
+    const SERVER_PORT = "localhost:8000";
+
+    useEffect(() => {
+        socket = io(SERVER_PORT);
+
+        socket.emit('rooms', {room});
+        socket.on('roomArray', rooms => {
+            setRooms(rooms);
+        })
+    }, [SERVER_PORT]);
 
     return (
         <div data-vide-bg="background">
@@ -28,6 +43,7 @@ const Dashboard = () => {
                                 <button type="submit">Join</button>
                             </Link>
                         </div>
+                        <Rooms rooms={rooms}/>
                     </div>
                 </div>
             </div>

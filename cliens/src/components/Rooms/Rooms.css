@@ -1,0 +1,15 @@
+.roomsBox {
+    position: absolute;
+    top:0%;
+    left: -100%;
+    transform: translate(-50%, -50%);
+    width: 150px;
+    padding: 60px 40px;
+    /*background: rgb(146, 146, 201);*/
+    box-shadow: 0 15px 20px rgba(255, 255, 255, 0.59);
+    color: white;
+}
+
+.roomsBox li {
+    color: white;
+}

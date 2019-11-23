@@ -1,6 +1,5 @@
 const users = [];
 
-
 const addUser = ({id, name, room}) => {
     name = name.trim().toLowerCase();
     room = room.trim().toLowerCase();
@@ -25,8 +24,12 @@ const getUser = (id) => users.find((user) => user.id === id);
 
 const getUserInRoom = (room) => users.filter((user) => user.room === room);
 
-const getAllRooms = (room) => {users.filter(room_ => room_.room === room)
-
+const getAllRooms = () => {
+    const rooms = new Set();
+    for(const user of users) {
+        rooms.add(user.room);
+    }
+    return rooms;
 };
 
 module.exports = {addUser, removeUser, getUser, getUserInRoom, getAllRooms};
