@@ -3,7 +3,7 @@ In this period I started to learn React and I decided to do useful and interesti
 I found some tutorials and this project is based tutorials and I am so grateful for them.
 
 Join to chat:
-![image](https://user-images.githubusercontent.com/41436287/69419246-61d7cf00-0d1c-11ea-862b-019ff7d17755.png)
+![image](https://user-images.githubusercontent.com/41436287/69536109-ab732480-0f7d-11ea-86d6-ae7444375313.png)
 
 Chat room:
 ![image](https://user-images.githubusercontent.com/41436287/69419319-8338bb00-0d1c-11ea-8997-80d7626560f0.png)
