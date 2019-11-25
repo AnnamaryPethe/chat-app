@@ -32,4 +32,14 @@ const getAllRooms = () => {
     return rooms;
 };
 
-module.exports = {addUser, removeUser, getUser, getUserInRoom, getAllRooms};
+const getAllUsersInRoom = (room) => {
+    const usersList = new Set();
+    for (let user of users) {
+        if(user.room === room) {
+            usersList.add(user.name);
+        }
+    }
+    return usersList;
+};
+
+module.exports = {addUser, removeUser, getUser, getUserInRoom, getAllRooms, getAllUsersInRoom};

@@ -17,6 +17,7 @@ const Chat = ({location}) => {
     const [users, setUsers] = useState('');
     const [message, setMessage] = useState('');
     const [messages, setMessages] = useState([]);
+    const [names, setNames] = useState([]);
     const ENDPOINT = 'localhost:8000';
 
     useEffect(() => {
@@ -38,9 +39,14 @@ const Chat = ({location}) => {
             setMessages([...messages, message ]);
         });
 
+        socket.on('userArray', names => {
+            setNames(names);
+        });
+
         socket.on('roomData', ({ users }) => {
             setUsers(users);
         });
+
 
         return () => {
             socket.emit('disconnect');
@@ -68,7 +74,7 @@ const Chat = ({location}) => {
                         <Messages messages={messages} name={name}/>
                         <InputBox message={message} setMessage={setMessage} sendMessage={sendMessage}/>
                     </div>
-                    <UsersContainer users={users}/>
+                    <UsersContainer names={names}/>
                 </div>
                 < script src="https://code.jquery.com/jquery-3.4.1.js"/>
                 <script src="../../jquery.vide.js"/>

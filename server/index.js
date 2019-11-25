@@ -3,7 +3,7 @@ const socketIo = require('socket.io');
 const http = require('http');
 
 const router = require('./routes');
-const { addUser, removeUser, getUser, getUserInRoom, getAllRooms } = require('./users');
+const { addUser, removeUser, getUser, getUserInRoom, getAllRooms, getAllUsersInRoom } = require('./users');
 
 const PORT = process.env.PORT || 8000;
 
@@ -19,10 +19,12 @@ io.on('connection', (socket) => {
         if (error) return callback(error);
 
         socket.join(user.room);
+        const usersArray = getAllUsersInRoom(user.room);
 
         socket.emit('message', { user: 'admin', text: `${user.name}, welcome to the room ${user.room}`});
         socket.broadcast.to(user.room).emit('message', {user: 'admin', text: `${user.name} has joined`});
         io.to(user.room).emit('roomData', {room: user.room, users: getUserInRoom(user.room)});
+        socket.emit('userArray', Array.from(usersArray));
 
         callback();
     });
@@ -33,6 +35,13 @@ io.on('connection', (socket) => {
 
         socket.emit('roomArray',  Array.from(roomArray));
     });
+
+    // socket.on('users', room => {
+    //     const usersArray = getAllUsersInRoom(room);
+    //     console.log(usersArray);
+    //
+    //     socket.emit('userArray', Array.from(usersArray));
+    // });
 
     socket.on('sendMessage', (message, callback) => {
         const user = getUser(socket.id);
