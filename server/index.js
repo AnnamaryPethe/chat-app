@@ -3,7 +3,7 @@ const socketIo = require('socket.io');
 const http = require('http');
 
 const router = require('./routes');
-const { addUser, removeUser, getUser, getUserInRoom, getAllRooms, getAllUsersInRoom } = require('./users');
+const { addUser, removeUser, getUser, getUserInRoom, getAllRooms, getAllUsersInRoom, isValidName } = require('./users');
 
 const PORT = process.env.PORT || 8000;
 
@@ -14,9 +14,17 @@ const io = socketIo(server);
 app.use(router);
 
 io.on('connection', (socket) => {
+
+    socket.on('checkName', ({ name }, callback) =>{
+        if (!isValidName({name})) {
+            console.log('not valid');
+            return callback({error: 'not valid'});
+        }
+        return callback(null)
+    });
+
     socket.on('join', ({name, room}, callback) => {
-        const { error, user } = addUser({ id: socket.id, name, room});  //2 params in the object because users.js addUser function has 2 return values, and we have to set 3 params
-        if (error) return callback(error);
+        const { user } = addUser({ id: socket.id, name, room});
 
         socket.join(user.room);
         const usersArray = getAllUsersInRoom(user.room);
@@ -35,13 +43,6 @@ io.on('connection', (socket) => {
 
         socket.emit('roomArray',  Array.from(roomArray));
     });
-
-    // socket.on('users', room => {
-    //     const usersArray = getAllUsersInRoom(room);
-    //     console.log(usersArray);
-    //
-    //     socket.emit('userArray', Array.from(usersArray));
-    // });
 
     socket.on('sendMessage', (message, callback) => {
         const user = getUser(socket.id);

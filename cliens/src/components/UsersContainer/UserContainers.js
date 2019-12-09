@@ -23,7 +23,16 @@ const UsersContainer = ({ names }) => (
                         </div>
                     </div>
                 )
-                : null
+                : <div>
+                    <h1>People currently chatting:</h1>
+                    <div className="activeContainer">
+                        <h2>
+                            <div className="activeItem">
+
+                            </div>
+                        </h2>
+                    </div>
+                </div>
         }
     </div>
 );

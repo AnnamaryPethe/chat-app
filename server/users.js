@@ -4,16 +4,19 @@ const addUser = ({id, name, room}) => {
     name = name.trim().toLowerCase();
     room = room.trim().toLowerCase();
 
-    const existUser = users.find(user => user === user.name && user === user.room);
-
-    if (existUser) {
-        return {error: "Username is taken."}
-    }
-
-    const user = { id, name, room};
+    const user = { id, name, room };
     users.push(user);
+    return { user };
+};
 
-    return { user }
+const isValidName = ({name}) => {
+    name = name.trim().toLowerCase();
+    for (const user of users) {
+        if (user.name === name) {
+            return false;
+        }
+    }
+    return true;
 };
 
 const removeUser = (id) => {
@@ -42,4 +45,4 @@ const getAllUsersInRoom = (room) => {
     return usersList;
 };
 
-module.exports = {addUser, removeUser, getUser, getUserInRoom, getAllRooms, getAllUsersInRoom};
+module.exports = {addUser, removeUser, getUser, getUserInRoom, getAllRooms, getAllUsersInRoom, isValidName };

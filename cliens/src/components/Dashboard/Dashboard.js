@@ -22,6 +22,18 @@ const Dashboard = () => {
         })
     }, [SERVER_PORT]);
 
+    const handleJoin = event => {
+        event.preventDefault();
+
+        socket.emit('checkName', { name }, (error) => {
+            if (error) {
+                alert(error.error);
+                return;
+            }
+            window.location.replace(`/chat?name=${name}&room=${room}`);
+        });
+    };
+
     return (
         <div data-vide-bg="background">
             <div className="vid-container">
@@ -38,8 +50,7 @@ const Dashboard = () => {
                                    onChange={event => setRoom(event.target.value)}/>
                         </div>
                         <div className="joinInput">
-                            <Link onClick={event => (!name || !room ? event.preventDefault() : null)}
-                                  to={`/chat?name=${name}&room=${room}`}>
+                            <Link onClick={handleJoin} to={""}>
                                 <button type="submit">Join</button>
                             </Link>
                         </div>
