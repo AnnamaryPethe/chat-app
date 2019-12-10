@@ -25,7 +25,7 @@ const Dashboard = () => {
     const handleJoin = event => {
         event.preventDefault();
 
-        socket.emit('checkName', { name }, (error) => {
+        socket.emit('checkName', { name, room }, (error) => {
             if (error) {
                 alert(error.error);
                 return;

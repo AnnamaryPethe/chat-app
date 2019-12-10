@@ -9,10 +9,11 @@ const addUser = ({id, name, room}) => {
     return { user };
 };
 
-const isValidName = ({name}) => {
+const isValidName = ({name, room}) => {
     name = name.trim().toLowerCase();
+    room = room.trim().toLowerCase();
     for (const user of users) {
-        if (user.name === name) {
+        if (user.name === name && user.room === room) {
             return false;
         }
     }
