@@ -18,7 +18,7 @@ io.on('connection', (socket) => {
     socket.on('checkName', ({ name, room }, callback) =>{
         if (!isValidName({name, room})) {
             console.log('not valid');
-            return callback({error: 'not valid'});
+            return callback({error: 'Username is taken. Please choose other name.'});
         }
         return callback(null)
     });
